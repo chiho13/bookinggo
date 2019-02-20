@@ -10,8 +10,35 @@ const searchBar = styled.div `
         margin-bottom: 5px;
         height:40px;
         font-size:16px;
-        padding-left: 20px;
-     
+        padding: 5px;
+        width: 100%;
+        background: #fefefe;
+        border: 1px solid #a9a9a9;
+        box-sizing: border-box;
+
+        ::placeholder {
+            font-size: 14px;
+            color: #888;
+        }
+    }
+
+    fieldset {
+        display: inherit;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .search_container {
+        position: relative;
+    }
+
+    img {
+        position: absolute;
+        height: 24px;
+        width: auto;
+        right: 5px;
+        top: 8px;
     }
 
     label {
@@ -19,6 +46,7 @@ const searchBar = styled.div `
         line-height: 16px;
         font-size: 14px;
         padding-bottom: 8px;
+        color: #444;
     }
 `;
 

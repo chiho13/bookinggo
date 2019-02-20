@@ -10,18 +10,24 @@ class SearchBar extends Component {
     
     onInputChange = (term) => {
 		this.setState({term});
-		this.props.onSearchTermChange(term);
+		this.state.term.length > 0 && this.props.onSearchTermChange(term);
 	}
 
 	render() {
 		return (
 		<Search>
-			<label for="rentalCarSearch">Pick-up location</label>
-			<input
+			<fieldset>
+			<label htmlFor="rentalCarSearch">Pick-up location</label>
+
+			<div className="search_container">
+				{this.props.loading && <img src="https://cdn2.rcstatic.com/images/site_graphics/newsite/preloader64.gif" alt="loading"></img>}
+				<input
 				id="rentalCarSearch"
 				placeholder="city, airport, station, region, district..."
 				value={this.state.term}
 				onChange={event => this.onInputChange(event.target.value)} />
+			</div>
+			</fieldset>
 		</Search>
 		);
 	}

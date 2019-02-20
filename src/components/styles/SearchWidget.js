@@ -8,6 +8,12 @@ const SearchWidget = styled.div `
    height: 300px;
    position: relative;
    top: -150px;
+
+   h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+   }
 `;
 
 export default SearchWidget;
