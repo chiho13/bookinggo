@@ -20,11 +20,13 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { loading: false, searchResults: []}
+		this.state = { loading: false, searchResults: [], showSearchResults: false}
 	}
 
 	 artistSearch = async (term) => {
-		 this.setState({loading: true});
+        this.setState({showSearchResults: false});
+        if (!(term.length >= 2)) return;
+        this.setState({loading: true});
 		const url = `https://www.rentalcars.com/FTSAutocomplete.do?solrIndex=fts_en&solrRows=6&solrTerm=${term}`;
         const response = await fetch(url, {
 			method: 'POST',
@@ -34,27 +36,22 @@ class App extends Component {
 			  }
         });
         const json = await response.json();
-		this.setState({loading: false, searchResults: json.results.docs});
-
-		console.log(this.state.searchResults)
+		this.setState({loading: false, searchResults: json.results.docs, showSearchResults: true});
     }
 
 	render() {
-
-		const searchResults = this.state.searchResults.map((item) => {
-			const ITEM = item;
+		const searchResults = this.state.searchResults.map((item, i) => {
 			return (
-			  <li>{item.name}, {item.country}, {item.city}</li>
+			  <li key={i}>{item.name && item.name}{item.country && `, ${item.country}`}{item.city && `, ${item.city}`}</li>
 		  );
 		});
 		return (<div><Hero></Hero>
                 <WidgetContainer>
-			        <SearchWidget>
-						<h1>Where are you going?</h1>
+			        <SearchWidget autocomplete="off" noValidate>
+						<h2>Where are you going?</h2>
                         <SearchBar loading={this.state.loading} onSearchTermChange={term => this.artistSearch(term)}/>
-					
-						<ul>
-							{searchResults}
+						<ul tabindex="-1">
+							{this.state.showSearchResults && searchResults}
 						</ul>
 	 		        </SearchWidget>
                  </WidgetContainer>
