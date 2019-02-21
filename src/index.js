@@ -24,7 +24,7 @@ class App extends Component {
 	}
 
 	 artistSearch = async (term) => {
-        this.setState({showSearchResults: false});
+        term.length < 2 && this.setState({showSearchResults: false});
         if (!(term.length >= 2)) return;
         this.setState({loading: true});
 		const url = `https://www.rentalcars.com/FTSAutocomplete.do?solrIndex=fts_en&solrRows=6&solrTerm=${term}`;
@@ -47,10 +47,10 @@ class App extends Component {
 		});
 		return (<div><Hero></Hero>
                 <WidgetContainer>
-			        <SearchWidget autocomplete="off" noValidate>
+			        <SearchWidget autoComplete="off" noValidate>
 						<h2>Where are you going?</h2>
                         <SearchBar loading={this.state.loading} onSearchTermChange={term => this.artistSearch(term)}/>
-						<ul tabindex="-1">
+						<ul tabIndex="-1">
 							{this.state.showSearchResults && searchResults}
 						</ul>
 	 		        </SearchWidget>
